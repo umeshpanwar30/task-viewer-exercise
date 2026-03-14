@@ -72,8 +72,7 @@
     <ul id="taskList" class="task-list"></ul>
 
     <div class="footer">
-        © 2026 Submission - Logic: State Persistence & Conditional Styling
-    </div>
+        © 2026 Powered by banana 🍌. </div>
 </div>
 
 <script>
@@ -153,7 +152,7 @@
         if (e.key === 'Enter') addTask();
     });
 
-    // 4. Toggle Task Status : completed or not // 
+    // 4. Toggle Task Status : 
 
     function toggleTask(id) {
         tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
@@ -175,7 +174,7 @@
     // Initial Load
     render();
 
-// 6. Clear All Logic - we are clearing the list on delete button //
+// 6. Clear All Logic
 function clearAll() {
     if (confirm()) {
         tasks = []; 
