@@ -38,19 +38,19 @@ Requirement: Show remaining tasks.
 
 ## 🧠 Technical Approach & Design Decisions : 
 
-Why Vanilla JavaScript?
+# Why Vanilla JavaScript?
 
-Instead of using heavy frameworks, I chose Vanilla JS to showcase my core understanding of the DOM API and Event Loop. This demonstrates my ability to build efficient tools with zero dependencies.
+# Instead of using heavy frameworks, I chose Vanilla JS to showcase my core understanding of the DOM API and Event Loop. This demonstrates my ability to build efficient tools with zero dependencies.
 
 ## Android-Inspired Architecture : 
 
-As an Android Developer, I structured the JavaScript logic to mirror the RecyclerView/Adapter pattern:
+# As an Android Developer, I structured the JavaScript logic to mirror the RecyclerView/Adapter pattern:
 
-Data Layer: An array of objects representing the "State".
+#Data Layer: An array of objects representing the "State".
 
-UI Layer: A render function that updates the DOM whenever the state changes.
+# UI Layer: A render function that updates the DOM whenever the state changes.
 
-Persistence Layer: A utility to handle local storage sync.
+# Persistence Layer: A utility to handle local storage sync.
 
 
 ## UX Improvements :  (Optional Extras) : 
