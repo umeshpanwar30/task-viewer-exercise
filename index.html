@@ -2,28 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Task Manager - Banana Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Banana Edition 🍌</title>
     <style>
-        /* CSS: Styling like a simple Android App UI */
-        body { font-family: Arial, sans-serif; background-color: #f5f5f5; display: flex; justify-content: center; padding: 20px; }
-        .app-container { background: white; width: 400px; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #333; }
-        
-        .stats-bar { display: flex; justify-content: space-between; background: #e3f2fd; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-weight: bold; }
-        
-        .input-section { display: flex; gap: 10px; margin-bottom: 20px; }
-        input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        
-        .filter-buttons { display: flex; gap: 5px; margin-bottom: 15px; justify-content: center; }
-        button { padding: 8px 12px; cursor: pointer; border: none; border-radius: 5px; background: #2196F3; color: white; }
-        button:hover { background: #1976D2; }
-        .btn-secondary { background: #757575; }
+        /* My CSS Part : */
 
-        .task-list { list-style: none; padding: 0; }
-        .task-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
-        .completed { text-decoration: line-through; color: #888; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #eceff1; display: flex; justify-content: center; padding: 40px 20px; }
+        .app-container { background: white; width: 100%; max-width: 450px; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #2c3e50; margin-bottom: 25px; }
         
-        .footer { text-align: center; font-size: 12px; color: #aaa; margin-top: 20px; }
+        /* Stats Bar */
+        .stats-bar { display: flex; justify-content: space-between; background: #f1f8ff; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #d1e9ff; color: #0056b3; font-size: 14px; }
+        
+        /* Input Section */
+        .input-section { display: flex; gap: 10px; margin-bottom: 20px; }
+        input { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 8px; outline: none; transition: border-color 0.3s; }
+        input:focus { border-color: #2196F3; }
+        
+        /* Buttons */
+        button { padding: 10px 18px; cursor: pointer; border: none; border-radius: 8px; font-weight: 600; transition: all 0.2s; }
+        .btn-add { background: #2196F3; color: white; }
+        .btn-add:hover { background: #1976D2; transform: translateY(-1px); }
+        
+        .filter-buttons { display: flex; gap: 8px; margin-bottom: 20px; justify-content: center; }
+        .btn-filter { background: #cfd8dc; color: #455a64; font-size: 13px; }
+        .btn-filter.active { background: #455a64; color: white; }
+
+        /* Task List */
+        .task-list { list-style: none; padding: 0; }
+        .task-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-bottom: 1px solid #eee; transition: background 0.3s; border-radius: 8px; margin-bottom: 5px; }
+        .task-item:hover { background: #fdfdfd; }
+        
+        /* Banana Rule Styling 🍌 */
+        .banana-highlight { background-color: #fff9c4 !important; border-left: 5px solid #fbc02d !important; font-weight: bold; }
+        
+        .completed-text { text-decoration: line-through; color: #b0bec5; }
+        .task-text { flex: 1; margin-right: 10px; }
+        
+        .btn-status { font-size: 12px; padding: 6px 12px; }
+
+        .footer { text-align: center; font-size: 12px; color: #90a4ae; margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px; }
     </style>
 </head>
 <body>
@@ -32,75 +50,95 @@
     <h2>Task Viewer 🍌</h2>
 
     <div class="stats-bar">
-        <span>Total: <span id="total-tasks">0</span></span>
+        <span>Total Tasks: <span id="total-tasks">0</span></span>
         <span>Completed: <span id="completed-tasks">0</span></span>
     </div>
 
     <div class="input-section">
-        <input type="text" id="taskInput" placeholder="Add a new task...">
-        <button onclick="addTask()">Add</button>
+        <input type="text" id="taskInput" placeholder="Type a task (try 'banana')...">
+        <button class="btn-add" onclick="addTask()">Add</button>
     </div>
 
+<div style="text-align: center; margin-bottom: 15px;">
+    <button onclick="clearAll()" style="background-color: #f44336; font-size: 12px;">Clear All List</button>
+</div>
+
     <div class="filter-buttons">
-        <button class="btn-secondary" onclick="render('all')">All</button>
-        <button class="btn-secondary" onclick="render('completed')">Completed</button>
-        <button class="btn-secondary" onclick="render('pending')">Pending</button>
+        <button class="btn-filter active" onclick="changeFilter('all', this)">All</button>
+        <button class="btn-filter" onclick="changeFilter('pending', this)">Pending</button>
+        <button class="btn-filter" onclick="changeFilter('completed', this)">Completed</button>
     </div>
 
     <ul id="taskList" class="task-list"></ul>
 
-    <div class="footer">This simple app is powered by a banana.</div>
+    <div class="footer">
+        © 2026 Submission - Logic: State Persistence & Conditional Styling
+    </div>
 </div>
 
 <script>
-    // 1. Initial Data from PDF [cite: 20-43]
+
+    // 1. Initial Data : Given as JSON API
+
     const startingData = [
         { "id": 1, "title": "Fix homepage bug", "completed": false },
         { "id": 2, "title": "Update pricing page", "completed": true },
-        { "id": 3, "title": "Add Stripe webhook", "completed": false },
+        { "id": 3, "title": "Buy a banana 🍌", "completed": false },
         { "id": 4, "title": "Write documentation", "completed": false }
     ];
 
-    // 2. Load from LocalStorage (Our DB) or use starting data 
+    let currentFilter = 'all';
     let tasks = JSON.parse(localStorage.getItem('my_task_db')) || startingData;
 
-    // 3. Render function (Like Adapter's notifyDataSetChanged in Android)
-    function render(filter = 'all') {
+
+    // 2. Render function with Banana Rule : 
+
+    function render() {
         const list = document.getElementById('taskList');
-        list.innerHTML = ''; // Clear list
+        list.innerHTML = ''; 
 
         let filteredTasks = tasks;
-        if (filter === 'completed') filteredTasks = tasks.filter(t => t.completed);
-        if (filter === 'pending') filteredTasks = tasks.filter(t => !t.completed);
+        if (currentFilter === 'completed') filteredTasks = tasks.filter(t => t.completed);
+        if (currentFilter === 'pending') filteredTasks = tasks.filter(t => !t.completed);
 
         filteredTasks.forEach(task => {
+            // BANANA RULE LOGIC
+            const isBanana = task.title.toLowerCase().includes("banana");
+            
             const li = document.createElement('li');
-            li.className = 'task-item';
+            li.className = `task-item ${isBanana ? 'banana-highlight' : ''}`;
+            
             li.innerHTML = `
-                <span class="${task.completed ? 'completed' : ''}">${task.title}</span>
-                <button onclick="toggleTask(${task.id})" style="background-color: ${task.completed ? '#f44336' : '#4CAF50'}">
+                <span class="task-text ${task.completed ? 'completed-text' : ''}">
+                    ${task.title} ${isBanana && !task.title.includes('🍌') ? '🍌' : ''}
+                </span>
+                <button class="btn-status" onclick="toggleTask(${task.id})" 
+                        style="background-color: ${task.completed ? '#ef5350' : '#66bb6a'}">
                     ${task.completed ? 'Undo' : 'Done'}
                 </button>
             `;
             list.appendChild(li);
         });
 
-        // Update Stats [cite: 17]
+        // Update Stats
         document.getElementById('total-tasks').innerText = tasks.length;
         document.getElementById('completed-tasks').innerText = tasks.filter(t => t.completed).length;
 
-        // Save to DB
+        // Save to LocalStorage
         localStorage.setItem('my_task_db', JSON.stringify(tasks));
     }
 
-    // 4. Add Task Logic
+    // 3. Add Task with Keyboard : 
+
     function addTask() {
         const input = document.getElementById('taskInput');
-        if (input.value.trim() === '') return;
+        const text = input.value.trim();
+        
+        if (text === '') return;
 
         const newTask = {
-            id: Date.now(), // Unique ID
-            title: input.value,
+            id: Date.now(),
+            title: text,
             completed: false
         };
 
@@ -109,14 +147,42 @@
         render();
     }
 
-    // 5. Toggle Completed Logic [cite: 15]
+    // Keyboard 'Enter' key : 
+
+    document.getElementById('taskInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addTask();
+    });
+
+    // 4. Toggle Task Status : completed or not // 
+
     function toggleTask(id) {
         tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
         render();
     }
 
+    // 5. Filtering the list
+
+    function changeFilter(filterType, btnElement) {
+        currentFilter = filterType;
+        
+        // Updating my active button UI
+        document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+        btnElement.classList.add('active');
+        
+        render();
+    }
+
     // Initial Load
     render();
+
+// 6. Clear All Logic - we are clearing the list on delete button //
+function clearAll() {
+    if (confirm()) {
+        tasks = []; 
+        localStorage.removeItem('my_task_db');
+        render(); // Screen update kar di
+    }
+}
 </script>
 
 </body>
