@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager - Banana Project</title>
+    <style>
+        /* CSS: Styling like a simple Android App UI */
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; display: flex; justify-content: center; padding: 20px; }
+        .app-container { background: white; width: 400px; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; }
+        
+        .stats-bar { display: flex; justify-content: space-between; background: #e3f2fd; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-weight: bold; }
+        
+        .input-section { display: flex; gap: 10px; margin-bottom: 20px; }
+        input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        
+        .filter-buttons { display: flex; gap: 5px; margin-bottom: 15px; justify-content: center; }
+        button { padding: 8px 12px; cursor: pointer; border: none; border-radius: 5px; background: #2196F3; color: white; }
+        button:hover { background: #1976D2; }
+        .btn-secondary { background: #757575; }
+
+        .task-list { list-style: none; padding: 0; }
+        .task-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
+        .completed { text-decoration: line-through; color: #888; }
+        
+        .footer { text-align: center; font-size: 12px; color: #aaa; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <h2>Task Viewer 🍌</h2>
+
+    <div class="stats-bar">
+        <span>Total: <span id="total-tasks">0</span></span>
+        <span>Completed: <span id="completed-tasks">0</span></span>
+    </div>
+
+    <div class="input-section">
+        <input type="text" id="taskInput" placeholder="Add a new task...">
+        <button onclick="addTask()">Add</button>
+    </div>
+
+    <div class="filter-buttons">
+        <button class="btn-secondary" onclick="render('all')">All</button>
+        <button class="btn-secondary" onclick="render('completed')">Completed</button>
+        <button class="btn-secondary" onclick="render('pending')">Pending</button>
+    </div>
+
+    <ul id="taskList" class="task-list"></ul>
+
+    <div class="footer">This simple app is powered by a banana.</div>
+</div>
+
+<script>
+    // 1. Initial Data from PDF [cite: 20-43]
+    const startingData = [
+        { "id": 1, "title": "Fix homepage bug", "completed": false },
+        { "id": 2, "title": "Update pricing page", "completed": true },
+        { "id": 3, "title": "Add Stripe webhook", "completed": false },
+        { "id": 4, "title": "Write documentation", "completed": false }
+    ];
+
+    // 2. Load from LocalStorage (Our DB) or use starting data 
+    let tasks = JSON.parse(localStorage.getItem('my_task_db')) || startingData;
+
+    // 3. Render function (Like Adapter's notifyDataSetChanged in Android)
+    function render(filter = 'all') {
+        const list = document.getElementById('taskList');
+        list.innerHTML = ''; // Clear list
+
+        let filteredTasks = tasks;
+        if (filter === 'completed') filteredTasks = tasks.filter(t => t.completed);
+        if (filter === 'pending') filteredTasks = tasks.filter(t => !t.completed);
+
+        filteredTasks.forEach(task => {
+            const li = document.createElement('li');
+            li.className = 'task-item';
+            li.innerHTML = `
+                <span class="${task.completed ? 'completed' : ''}">${task.title}</span>
+                <button onclick="toggleTask(${task.id})" style="background-color: ${task.completed ? '#f44336' : '#4CAF50'}">
+                    ${task.completed ? 'Undo' : 'Done'}
+                </button>
+            `;
+            list.appendChild(li);
+        });
+
+        // Update Stats [cite: 17]
+        document.getElementById('total-tasks').innerText = tasks.length;
+        document.getElementById('completed-tasks').innerText = tasks.filter(t => t.completed).length;
+
+        // Save to DB
+        localStorage.setItem('my_task_db', JSON.stringify(tasks));
+    }
+
+    // 4. Add Task Logic
+    function addTask() {
+        const input = document.getElementById('taskInput');
+        if (input.value.trim() === '') return;
+
+        const newTask = {
+            id: Date.now(), // Unique ID
+            title: input.value,
+            completed: false
+        };
+
+        tasks.push(newTask);
+        input.value = '';
+        render();
+    }
+
+    // 5. Toggle Completed Logic [cite: 15]
+    function toggleTask(id) {
+        tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+        render();
+    }
+
+    // Initial Load
+    render();
+</script>
+
+</body>
+</html>
