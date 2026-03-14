@@ -1,23 +1,22 @@
+## How to run this page locally.??
+
+Ans . You can download the file from the link and then once download it will automatically run when click on the file, its the html file with extension, so it will run in the web browser directly on click.
+
 ## 📝 Task Management App (Task Viewer Exercise) : 
  
 A robust and responsive Task Management application built with Vanilla JavaScript, designed to demonstrate clean code practices, DOM manipulation, and state persistence.
 
 
-## 🚀 Features & Implementation (Meeting All Requirements) : 
+## 🚀 Features & Implementation : 
 
-## 1. The "Banana" Rule 🍌 : 
 
-Requirement: I Highlighted the task containing the word "banana" as a searched word functionality.
-
-Logic: I implemented a case-insensitive check. If a user enters "Banana", "BANANA", or "BaNaNa", the task is automatically highlighted with a yellow background and a banana emoji to ensure visual distinction.
-
-## 2. Task Persistence (LocalStorage) 💾 : 
+## 1. Task Persistence (LocalStorage) 💾 : 
 
 Requirement: Data should persist after page refresh.
 
 Logic: Every time a task is added, toggled, or deleted, the state is synced with localStorage. This ensures a seamless user experience without data loss.
 
-## 3. Smart Filtering 🔍 : 
+## 2. Smart Filtering 🔍 : 
 
 Requirement: Filter tasks by status.
 
@@ -30,16 +29,18 @@ Pending: Shows only tasks that are yet to be completed.
 Completed: Shows tasks that have been struck through.
 
 
-## 4. Real-time Task Statistics 📊
+## 3 . Real-time Task Statistics 📊
 
 Requirement: Show remaining tasks.
 
 Logic: A dynamic counter updates instantly to show "X tasks left", giving users a clear overview of their workload.
 
 
-## 🧠 Technical Approach & Design Decisions : 
+## 4 .🧠 Technical Approach & Design Decisions : 
 
-Why Vanilla JavaScript?
+My Approach - I used simple Vanilla Javascript, css and html.
+
+Why I decided to choose Vanilla JavaScript ?
 
 Instead of using heavy frameworks, I chose Vanilla JS to showcase my core understanding of the DOM API and Event Loop. This demonstrates my ability to build efficient tools with zero dependencies.
 
@@ -58,11 +59,11 @@ Persistence Layer: A utility to handle local storage sync.
 
 Keyboard Support: Users can press the Enter key to add tasks, making the app much faster to use.
 
-Input Validation: Prevents empty tasks or just spaces from being added.
-
-Auto-Focus: The input field is ready for typing as soon as the page loads.
+Simple Note : 
+If more time I will add validations that prevents empty tasks or just spaces from being added.
+and, auto-focus where the input field will ready for typing as soon as the page loads.
 
 ### 📺 Demo & Documentation :
 PLease, go through this video for live real time check how the system is working !!!. 
 
-Video Walkthrough: https://drive.google.com/file/d/1-dqvXYelnL_3ihbRLNOBeNMWSQ_O7RTZ/view
+Video Walkthrough: https://drive.google.com/file/d/1oOP0aWY2AJYSXdB_GMPRujhXye0iMwAo/view?usp=sharing
