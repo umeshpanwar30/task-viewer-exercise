@@ -1,6 +1,6 @@
-##📝 Task Management App (Task Viewer Exercise) : 
+## 📝 Task Management App (Task Viewer Exercise) : 
  
- A robust and responsive Task Management application built with Vanilla JavaScript, designed to demonstrate clean code practices, DOM manipulation, and state persistence.
+A robust and responsive Task Management application built with Vanilla JavaScript, designed to demonstrate clean code practices, DOM manipulation, and state persistence.
 
 
 ## 🚀 Features & Implementation (Meeting All Requirements) : 
@@ -19,34 +19,35 @@ Logic: Every time a task is added, toggled, or deleted, the state is synced with
 
 ## 3. Smart Filtering 🔍 : 
 
-# Requirement: Filter tasks by status.
+Requirement: Filter tasks by status.
 
-# Logic: Implemented a functional filter system:
+Logic: Implemented a functional filter system:
 
-# All: Displays the entire list.
+All: Displays the entire list.
 
-# Pending: Shows only tasks that are yet to be completed.
+Pending: Shows only tasks that are yet to be completed.
 
-# Completed: Shows tasks that have been struck through.
+Completed: Shows tasks that have been struck through.
 
 
 ## 4. Real-time Task Statistics 📊
+
 Requirement: Show remaining tasks.
 
-# Logic: A dynamic counter updates instantly to show "X tasks left", giving users a clear overview of their workload.
+Logic: A dynamic counter updates instantly to show "X tasks left", giving users a clear overview of their workload.
 
 
 ## 🧠 Technical Approach & Design Decisions : 
 
-# Why Vanilla JavaScript?
+Why Vanilla JavaScript?
 
-# Instead of using heavy frameworks, I chose Vanilla JS to showcase my core understanding of the DOM API and Event Loop. This demonstrates my ability to build efficient tools with zero dependencies.
+Instead of using heavy frameworks, I chose Vanilla JS to showcase my core understanding of the DOM API and Event Loop. This demonstrates my ability to build efficient tools with zero dependencies.
 
 ## Android-Inspired Architecture : 
 
 # As an Android Developer, I structured the JavaScript logic to mirror the RecyclerView/Adapter pattern:
 
-#Data Layer: An array of objects representing the "State".
+# Data Layer: An array of objects representing the "State".
 
 # UI Layer: A render function that updates the DOM whenever the state changes.
 
