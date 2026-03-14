@@ -101,21 +101,12 @@
         if (currentFilter === 'pending') filteredTasks = tasks.filter(t => !t.completed);
 
         filteredTasks.forEach(task => {
-            // BANANA RULE LOGIC
-            const isBanana = task.title.toLowerCase().includes("banana");
-            
-            const li = document.createElement('li');
-            li.className = `task-item ${isBanana ? 'banana-highlight' : ''}`;
-            
-            li.innerHTML = `
-                <span class="task-text ${task.completed ? 'completed-text' : ''}">
-                    ${task.title} ${isBanana && !task.title.includes('🍌') ? '🍌' : ''}
-                </span>
+
                 <button class="btn-status" onclick="toggleTask(${task.id})" 
                         style="background-color: ${task.completed ? '#ef5350' : '#66bb6a'}">
                     ${task.completed ? 'Undo' : 'Done'}
                 </button>
-            `;
+            
             list.appendChild(li);
         });
 
