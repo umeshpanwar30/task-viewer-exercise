@@ -45,13 +45,13 @@ Instead of using heavy frameworks, I chose Vanilla JS to showcase my core unders
 
 ## Android-Inspired Architecture : 
 
-# As an Android Developer, I structured the JavaScript logic to mirror the RecyclerView/Adapter pattern:
+As an Android Developer, I structured the JavaScript logic to mirror the RecyclerView/Adapter pattern:
 
-# Data Layer: An array of objects representing the "State".
+Data Layer: An array of objects representing the "State".
 
-# UI Layer: A render function that updates the DOM whenever the state changes.
+UI Layer: A render function that updates the DOM whenever the state changes.
 
-# Persistence Layer: A utility to handle local storage sync.
+Persistence Layer: A utility to handle local storage sync.
 
 
 ## UX Improvements :  (Optional Extras) : 
@@ -65,4 +65,4 @@ Auto-Focus: The input field is ready for typing as soon as the page loads.
 ### 📺 Demo & Documentation :
 PLease, go through this video for live real time check how the system is working !!!. 
 
-# Video Walkthrough: https://drive.google.com/file/d/1-dqvXYelnL_3ihbRLNOBeNMWSQ_O7RTZ/view
+Video Walkthrough: https://drive.google.com/file/d/1-dqvXYelnL_3ihbRLNOBeNMWSQ_O7RTZ/view
