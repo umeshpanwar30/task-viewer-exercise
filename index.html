@@ -16,7 +16,7 @@ body {
     
 }        .app-container { background: white; width: 90%; max-width: 400px; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
         
-        /* 2. Flex Layouts (Reusable) */
+        /* 2. Flex Layouts (Reusable - we can reuse this) */
         .flex { display: flex; gap: 10px; align-items: center; margin-bottom: 15px; }
         .between { justify-content: space-between; }
         .center { justify-content: center; }
@@ -74,8 +74,10 @@ body {
 <script>
     let currentFilter = 'all';
     let tasks = JSON.parse(localStorage.getItem('ec_tasks_db')) || [
-        { id: 1, title: "Fix homepage bug", completed: false },
-        { id: 2, title: "Buy a banana 🍌", completed: true }
+        { "id": 1, "title": "Fix homepage bug", "completed": false },
+        { "id": 2, "title": "Update pricing page", "completed": true },
+        { "id": 3, "title": "Add Stripe webhook", "completed": false },
+        { "id": 4, "title": "Write document","completed: false"},
     ];
 
     function render() {
