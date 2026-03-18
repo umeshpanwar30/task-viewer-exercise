@@ -63,8 +63,13 @@
 <script>
     let currentFilter = 'all';
     let tasks = JSON.parse(localStorage.getItem('ec_tasks_db')) || [
-        { id: 1, title: "Fix homepage bug", completed: false },
-        { id: 2, title: "Buy a banana 🍌", completed: true }
+        
+        {"id": 1, "title":  "Fix homepage bug", "completed": false },
+        {"id": 2, "title": "Update pricing page", "completed": true },
+        {"id": 3, "title": "Add Stripe webhook", "completed": false },
+        {"id": 4, "title": "Write documentation", "completed": false }
+    
+    
     ];
 
     function render() {
