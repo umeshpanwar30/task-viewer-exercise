@@ -5,41 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Viewer System</title>
     <style>
-       
-body { 
-    font-family: 'Segoe UI', sans-serif; 
-    background: #f4f7f6; 
-    display: flex; 
-    justify-content: center; 
-    padding-top: 50px; 
-    margin: 0; 
-    
-}        .app-container { background: white; width: 90%; max-width: 400px; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        /* 1. Reset & Layout: Wahi Top-Center Alignment */
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; justify-content: center; padding: 40px 20px; margin: 0; }
+        .app-container { background: white; width: 100%; max-width: 450px; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
         
-        /* 2. Flex Layouts (Reusable - we can reuse this) */
-        .flex { display: flex; gap: 10px; align-items: center; margin-bottom: 15px; }
+        /* 2. Reusable Flex Classes */
+        .flex { display: flex; gap: 10px; align-items: center; margin-bottom: 20px; }
         .between { justify-content: space-between; }
-        .center { justify-content: center; }
-
-        /* 3. Stats & Header */
+        
         h2 { text-align: center; color: #333; margin-top: 0; }
         .stats-bar { background: #f0f4f8; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 500; border: 1px solid #dce6f0; }
 
-        /* 4. Inputs & Buttons for our fields */ 
+        /* 3. Inputs & Buttons */
         input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; }
         button { padding: 10px 18px; cursor: pointer; border: none; border-radius: 6px; font-weight: 600; transition: 0.2s; }
-        
         .btn-add { background: #2196F3; color: white; }
         .btn-clear { background: #ff5252; color: white; width: 100%; font-size: 12px; margin-bottom: 15px; }
-        .btn-filter { background: #e0e0e0; color: #555; font-size: 13px; }
+        
+        .filters { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
+        .btn-filter { background: #e0e0e0; color: #555; font-size: 13px; padding: 8px 14px; }
         .btn-filter.active { background: #555; color: white; }
 
-        /* 5. Task List - array of our tasks */
+        /* 4. List Items */
         .task-list { list-style: none; padding: 0; }
         .task-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; }
-        .task-text { flex: 1; margin-right: 10px; }
         .completed-text { text-decoration: line-through; color: #aaa; }
-        
         .footer { text-align: center; font-size: 12px; color: #999; margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px; }
     </style>
 </head>
@@ -60,34 +50,34 @@ body {
 
     <button class="btn-clear" onclick="clearAll()">Clear All List</button>
 
-    <div class="flex center">
+    <div class="filters">
         <button class="btn-filter active" onclick="changeFilter('all', this)">All</button>
         <button class="btn-filter" onclick="changeFilter('pending', this)">Pending</button>
         <button class="btn-filter" onclick="changeFilter('completed', this)">Completed</button>
     </div>
 
     <ul id="taskList" class="task-list"></ul>
-
     <div class="footer">Submission Note: Powered by a banana 🍌.</div>
 </div>
 
 <script>
     let currentFilter = 'all';
     let tasks = JSON.parse(localStorage.getItem('ec_tasks_db')) || [
-        { "id": 1, "title": "Fix homepage bug", "completed": false },
-        { "id": 2, "title": "Update pricing page", "completed": true },
-        { "id": 3, "title": "Add Stripe webhook", "completed": false },
-        { "id": 4, "title": "Write document","completed: false"}
+        { id: 1, title: "Fix homepage bug", completed: false },
+        { id: 2, title: "Buy a banana 🍌", completed: true }
     ];
 
     function render() {
         const list = document.getElementById('taskList');
-        const filtered = tasks.filter(t => currentFilter === 'all' ? true : (currentFilter === 'completed' ? t.completed : !t.completed));
+        // Filter logic in 1 line
+        const filtered = tasks.filter(t => currentFilter==='all' ? true : (currentFilter==='completed' ? t.completed : !t.completed));
 
+        // Modern Rendering using map
         list.innerHTML = filtered.map(t => `
             <li class="task-item">
-                <span class="task-text ${t.completed ? 'completed-text' : ''}">${t.title}</span>
-                <button onclick="toggleTask(${t.id})" style="background:${t.completed ? '#ff5252' : '#4caf50'}; color:white; font-size:12px; width:70px; border-radius:6px; padding:6px;">
+                <span style="flex:1" class="${t.completed ? 'completed-text' : ''}">${t.title}</span>
+                <button onclick="toggleTask(${t.id})" 
+                        style="background:${t.completed ? '#ff5252' : '#4caf50'}; color:white; font-size:12px; width:70px; padding:6px; border-radius:6px;">
                     ${t.completed ? 'Undo' : 'Done'}
                 </button>
             </li>
@@ -106,8 +96,8 @@ body {
         render();
     }
 
-    // Enter Key Support (Jo tumne manga tha)
-    document.getElementById('taskInput').addEventListener('keypress', (e) => e.key === 'Enter' && addTask());
+    // Enter Key
+    document.getElementById('taskInput').addEventListener('keypress', e => e.key === 'Enter' && addTask());
 
     function toggleTask(id) {
         tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
@@ -121,7 +111,7 @@ body {
         render();
     }
 
-    function clearAll() { if(confirm("Clear list?")) { tasks = []; render(); } }
+    function clearAll() { if(confirm("Clear All?")) { tasks = []; localStorage.clear(); render(); } }
 
     render();
 </script>
