@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Viewer System</title>
     <style>
-        /* 1. Reset & Layout: Wahi Top-Center Alignment */
+    
         body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; justify-content: center; padding: 40px 20px; margin: 0; }
         .app-container { background: white; width: 100%; max-width: 450px; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
         
@@ -74,10 +74,12 @@
 
     function render() {
         const list = document.getElementById('taskList');
-        // Filter logic in 1 line
+        
+        // we are filtering with filter();
         const filtered = tasks.filter(t => currentFilter==='all' ? true : (currentFilter==='completed' ? t.completed : !t.completed));
 
-        // Modern Rendering using map
+        // we are looping with map //
+        
         list.innerHTML = filtered.map(t => `
             <li class="task-item">
                 <span style="flex:1" class="${t.completed ? 'completed-text' : ''}">${t.title}</span>
@@ -101,7 +103,7 @@
         render();
     }
 
-    // Enter Key
+    // Enter Key // 
     document.getElementById('taskInput').addEventListener('keypress', e => e.key === 'Enter' && addTask());
 
     function toggleTask(id) {
@@ -109,6 +111,7 @@
         render();
     }
 
+    // we are changing colour of the button // 
     function changeFilter(type, btn) {
         currentFilter = type;
         document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
