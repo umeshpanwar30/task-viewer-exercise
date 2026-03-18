@@ -97,7 +97,13 @@
 
     function addTask() {
         const input = document.getElementById('taskInput');
+       
+        
+    // this is our edge case which will check null or empty values and it will return;
+        
         if (!input.value.trim()) return;
+        
+        
         tasks.push({ id: Date.now(), title: input.value, completed: false });
         input.value = '';
         render();
@@ -107,11 +113,19 @@
     document.getElementById('taskInput').addEventListener('keypress', e => e.key === 'Enter' && addTask());
 
     function toggleTask(id) {
+
+    // edge case if in case invalid id will return it not give any errors //
+        
+        if(id == -1){
+            return;
+        }
+        
         tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
         render();
     }
 
     // we are changing colour of the button // 
+    
     function changeFilter(type, btn) {
         currentFilter = type;
         document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
