@@ -83,34 +83,32 @@
     let tasks = JSON.parse(localStorage.getItem('ec_tasks_db')) || startingData;
 
     // 2. Render function
-    function render() {
-        const list = document.getElementById('taskList');
-        list.innerHTML = ''; 
+  function render() {
+    const list = document.getElementById('taskList');
+    
+    // 1. Pehle filter karlo (Wahi purana logic)
+    let filteredTasks = tasks;
+    if (currentFilter === 'completed') filteredTasks = tasks.filter(t => t.completed);
+    if (currentFilter === 'pending') filteredTasks = tasks.filter(t => !t.completed);
 
-        let filteredTasks = tasks;
-        if (currentFilter === 'completed') filteredTasks = tasks.filter(t => t.completed);
-        if (currentFilter === 'pending') filteredTasks = tasks.filter(t => !t.completed);
+    // 2. Ek hi baar mein poori HTML string banao aur 'list' mein daal do
+    list.innerHTML = filteredTasks.map(task => `
+        <li class="task-item">
+            <span class="task-text ${task.completed ? 'completed-text' : ''}">
+                ${task.title}
+            </span>
+            <button class="btn-status" onclick="toggleTask(${task.id})" 
+                    style="background-color: ${task.completed ? '#ff5252' : '#4caf50'}; color: white;">
+                ${task.completed ? 'Undo' : 'Done'}
+            </button>
+        </li>
+    `).join(''); // join('') zaroori hai taaki array ke beech ke commas hat jayein
 
-        filteredTasks.forEach(task => {
-            const li = document.createElement('li');
-            li.className = 'task-item';
-            li.innerHTML = `
-                <span class="task-text ${task.completed ? 'completed-text' : ''}">
-                    ${task.title}
-                </span>
-                <button class="btn-status" onclick="toggleTask(${task.id})" 
-                        style="background-color: ${task.completed ? '#ff5252' : '#4caf50'}; color: white;">
-                    ${task.completed ? 'Undo' : 'Done'}
-                </button>
-            `;
-            list.appendChild(li);
-        });
-
-        document.getElementById('total-tasks').innerText = tasks.length;
-        document.getElementById('completed-tasks').innerText = tasks.filter(t => t.completed).length;
-        localStorage.setItem('ec_tasks_db', JSON.stringify(tasks));
-    }
-
+    // 3. Stats aur Storage (Same as before)
+    document.getElementById('total-tasks').innerText = tasks.length;
+    document.getElementById('completed-tasks').innerText = tasks.filter(t => t.completed).length;
+    localStorage.setItem('ec_tasks_db', JSON.stringify(tasks));
+}
     // 3. Add Task Logic
     function addTask() {
         const input = document.getElementById('taskInput');
