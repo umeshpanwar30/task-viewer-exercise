@@ -1,6 +1,6 @@
 ## How to run this page locally.??
 
-Ans Simply download the index.html file and open it in any modern web browser (Chrome, Firefox, or Edge).
+Ans: Simply download the index.html file and open it in any modern web browser (Chrome, Firefox, or Edge).
 
 
 ## 📝 Task Management App (Task Viewer Exercise) : 
@@ -62,13 +62,14 @@ UI Layer: A render function that updates the DOM whenever the state changes.
 Persistence Layer: A utility to handle local storage sync.
 
 
-## UX Improvements :  (Optional Extras) : 
+## Optional Extras : 
+
+Persist tasks - Used local Storage which stores the data locally in string then we parse it to show data.
 
 Keyboard Support: Users can press the Enter key to add tasks, making the app much faster to use.
 
 Simple Note : 
-If more time I will add validations that prevents empty tasks or just spaces from being added.
-and, auto-focus where the input field will ready for typing as soon as the page loads.
+If more time I will add more methods like some() that prevents duplicate tasks from being added and, auto-focus where the input field will ready for typing as soon as the page loads plus edit feature on the item.
 
 ### 📺 Demo & Documentation :
 PLease, go through this video below for live real time check how the system is working !!!. 
