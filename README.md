@@ -42,7 +42,7 @@ Logic: A dynamic counter updates instantly to show "X tasks left", giving users 
 
 
 
-## 5 . Technical Approach & Design Decisions : 
+## 4 . Technical Approach & Design Decisions : 
 
 My Approach - I used simple Vanilla Javascript, css and html.
 
