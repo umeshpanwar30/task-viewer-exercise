@@ -9,14 +9,16 @@
         body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; justify-content: center; padding: 40px 20px; margin: 0; }
         .app-container { background: white; width: 100%; max-width: 450px; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
         
-        /* 2. Reusable Flex Classes */
+        /* 2. Reusable Flex Classes - For Alignment and our margins, etc */
+        
         .flex { display: flex; gap: 10px; align-items: center; margin-bottom: 20px; }
         .between { justify-content: space-between; }
         
         h2 { text-align: center; color: #333; margin-top: 0; }
         .stats-bar { background: #f0f4f8; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 500; border: 1px solid #dce6f0; }
 
-        /* 3. Inputs & Buttons */
+        /* 3. Inputs & Buttons - This is our fields */
+        
         input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; }
         button { padding: 10px 18px; cursor: pointer; border: none; border-radius: 6px; font-weight: 600; transition: 0.2s; }
         .btn-add { background: #2196F3; color: white; }
@@ -27,6 +29,7 @@
         .btn-filter.active { background: #555; color: white; }
 
         /* 4. List Items */
+        
         .task-list { list-style: none; padding: 0; }
         .task-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; }
         .completed-text { text-decoration: line-through; color: #aaa; }
@@ -51,7 +54,7 @@
     <button class="btn-clear" onclick="clearAll()">Clear All List</button>
 
     <div class="filters">
-        <button class="btn-filter active" onclick="changeFilter('all', this)">All</button>
+        <button class="btn-filter active" onclick="changeFilter('all', this)">All</button> 
         <button class="btn-filter" onclick="changeFilter('pending', this)">Pending</button>
         <button class="btn-filter" onclick="changeFilter('completed', this)">Completed</button>
     </div>
@@ -64,6 +67,8 @@
     let currentFilter = 'all';
     let tasks = JSON.parse(localStorage.getItem('ec_tasks_db')) || [
         
+        // We are given JSON data. We will load it else OR we will load from localStorage if present. 
+        
         {"id": 1, "title":  "Fix homepage bug", "completed": false },
         {"id": 2, "title": "Update pricing page", "completed": true },
         {"id": 3, "title": "Add Stripe webhook", "completed": false },
@@ -75,10 +80,11 @@
     function render() {
         const list = document.getElementById('taskList');
         
-        // we are filtering with filter();
-        const filtered = tasks.filter(t => currentFilter==='all' ? true : (currentFilter==='completed' ? t.completed : !t.completed));
+        // We are filtering with our filter();
+        
+        const filtered = tasks.filter(t => currentFilter==='all' ? true : (currentFilter==='completed' ? t.completed : !t.completed)); // if currentFilter == 'all' will fetch all list else if currentFilter == 'completed' will fetch list of completed tasks else pending.
 
-        // we are looping with map //
+        // We are looping with map and setting each object value on list item //
         
         list.innerHTML = filtered.map(t => `
             <li class="task-item">
@@ -99,9 +105,10 @@
         const input = document.getElementById('taskInput');
        
         
-    // this is our edge case which will check null or empty values and it will return;
+    // This is our edge case which will check any blank spaces or empty fields and it will return;
         
         if (!input.value.trim()) return;
+        
         
         
         tasks.push({ id: Date.now(), title: input.value, completed: false });
@@ -109,22 +116,26 @@
         render();
     }
 
-    // Enter Key // 
+    // Enter Key press with eventlistener // 
+    
     document.getElementById('taskInput').addEventListener('keypress', e => e.key === 'Enter' && addTask());
 
+
+    // This func is used for button state change done or undo.
     function toggleTask(id) {
 
-    // edge case if in case invalid id will return it not give any errors //
+        
+    // Edge case if in case invalid id will return it not give any errors //
         
         if(id == -1){
             return;
         }
         
-        tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+        tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t); // this is spread operator for toggling tasks.
         render();
     }
 
-    // we are changing colour of the button // 
+    // We are changing colour of the button which is currently active or pressed with forEach loop // 
     
     function changeFilter(type, btn) {
         currentFilter = type;
@@ -133,6 +144,7 @@
         render();
     }
 
+    // Clear the list //
     function clearAll() { if(confirm("Clear All?")) { tasks = []; localStorage.clear(); render(); } }
 
     render();
