@@ -89,9 +89,9 @@
                     ${t.completed ? 'Undo' : 'Done'}
                 </button>
 
-                <button class="btn-edit" onclick="editTask(${t.id})">Edit</button>
+                <button style = " background: #4caf50;  color:white; font-size:12px; margin-left: 5px; width:60px; padding:6px" class="btn-edit" onclick="editTask(${t.id})">Edit</button>
                 
-                <button class="btn-del" onclick="deleteTask(${t.id})">Del</button>
+                <button style = "background: #4caf50; color:white; font-size:12px; margin-left: 5px; width:60px; padding:6px" class="btn-del"   onclick="deleteTask(${t.id})">Delete</button>
             </li>
         `).join('');
 
@@ -159,7 +159,7 @@ function deleteTask(id) {
     }
 
     // thats for editing 
-    
+
 function editTask(id) {
         for (let i = 0; i < tasks.length; i++) {
             if (tasks[i].id === id) {
